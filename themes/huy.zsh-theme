@@ -1,13 +1,10 @@
-if [ $UID -eq 0 ]; then NCOLOR="red"; else NCOLOR="green"; fi
+local user_host='%{$terminfo[bold]$fg[green]%}%n@%m%{$reset_color%}'
+local current_dir='%{$terminfo[bold]$fg[blue]%} %~%{$reset_color%}'
+local rvm_ruby='%{$fg[red]%}‹$(rvm-prompt i v g)›%{$reset_color%}'
+local git_branch='$(git_prompt_info)%{$reset_color%}'
 
-PROMPT='%{$fg[$NCOLOR]%}%c$(git_prompt_info) ➤ %{$reset_color%}'
+PROMPT="${user_host} ${current_dir}${git_branch} ${rvm_ruby}
+%{$fg[green]%}->%b "
 
-ZSH_THEME_GIT_PROMPT_PREFIX=":"
-ZSH_THEME_GIT_PROMPT_SUFFIX=""
-ZSH_THEME_GIT_PROMPT_DIRTY="*"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
-
-# See http://geoff.greer.fm/lscolors/
-export LSCOLORS="exfxcxdxbxbxbxbxbxbxbx"
-export LS_COLORS="di=34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=31;40:cd=31;40:su=31;40:sg=31;40:tw=31;40:ow=31;40:"
-
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$terminfo[bold]$fg[blue]%}::"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
